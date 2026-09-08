@@ -1,0 +1,21 @@
+# MorphoTV 内网部署 - Go 单二进制（一个容器搞定静态前端 + 代理）
+#
+# 用法：
+#   docker compose up -d --build
+#
+# 访问：
+#   http://<内网IP>:7180
+#
+# 前端初始化时 PROXY_BASE_URL 填：
+#   http://<内网IP>:7180/proxy/
+
+services:
+  morphotv:
+    build:
+      context: .
+      dockerfile: deploy-proxy/go-single/Dockerfile
+    ports:
+      - "7180:8080"
+    environment:
+      - PORT=8080
+    restart: unless-stopped
